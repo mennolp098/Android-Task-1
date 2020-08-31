@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Android-Task-1</string>
+    <string name="roll_dice">Roll your dice!</string>
+    <string name="roll_high">Roll higher</string>
+    <string name="roll_low">Roll lower</string>
+    <string name="roll_same">Roll same</string>
+
 </resources>

@@ -4,17 +4,18 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import com.example.android_task_1.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private val MAX_NUMBER:Int = 6;
-    private val MIN_NUMBER:Int = 0;
+    private val MAX_NUMBER:Int = 6
+    private val MIN_NUMBER:Int = 0
     private enum class DiceExpectation {
         LOWER, SAME, HIGHER
     }
-    private var diceNumber:Int = 0;
+    private var diceNumber:Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +40,7 @@ class MainActivity : AppCompatActivity() {
     private fun rollDice(diceExpectation: DiceExpectation) {
         updateDiceNumber()
         val dice = (1..6).random()
-        val hasWon = hasWonDiceRoll(this.diceNumber, dice.toInt(), diceExpectation);
+        val hasWon = hasWonDiceRoll(this.diceNumber, dice, diceExpectation);
         this.diceNumber = dice
 
         updateUI(hasWon)
@@ -52,7 +53,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateDiceImage() {
+        var drawable = R.drawable.dice1
 
+        when (this.diceNumber) {
+            1 -> drawable = R.drawable.dice1
+            2 -> drawable = R.drawable.dice2
+            3 -> drawable = R.drawable.dice3
+            4 -> drawable = R.drawable.dice4
+            5 -> drawable = R.drawable.dice5
+            6 -> drawable = R.drawable.dice6
+        }
+
+        binding.diceImageView.setImageDrawable(
+            ContextCompat.getDrawable(
+            applicationContext, // Context
+                drawable// Drawable
+        ));
     }
 
     private fun hasWonDiceRoll(previousDice: Int, currentDice: Int, diceExpectation: DiceExpectation):Boolean {
@@ -67,16 +83,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateDiceNumber() {
-        binding.diceTextView.text = getString(R.string.you_rolled, this.diceNumber)
+        binding.diceTextView.text = getString(R.string.last_throw, this.diceNumber)
     }
 
     private fun displaySuccessOrFailed(hasWon: Boolean) {
         if(hasWon)
         {
-            Toast.makeText(this, R.string.you_won, Toast.LENGTH_LONG).show()
+            Toast.makeText(this, R.string.you_won, Toast.LENGTH_SHORT).show()
             return
         }
-        Toast.makeText(this, R.string.you_lost, Toast.LENGTH_LONG).show()
+        Toast.makeText(this, R.string.you_lost, Toast.LENGTH_SHORT).show()
 
     }
 

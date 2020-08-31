@@ -4,7 +4,7 @@
     <string name="roll_high">Roll higher</string>
     <string name="roll_low">Roll lower</string>
     <string name="roll_same">Roll same</string>
-    <string name="you_rolled">You rolled: %d</string>
+    <string name="last_throw">Last Throw: %d</string>
     <string name="you_won">You won!</string>
     <string name="you_lost">You lost…</string>
 
